@@ -1,5 +1,3 @@
-export default () =>{
-  return (
-     
-  );
-}
+export default () => {
+  return <div>ABC</div>;
+};
