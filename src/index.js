@@ -1,22 +1,29 @@
-import React, { useReducer } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import "./styles.css";
-import { AppContext, initialState, reducer } from "./stores/appStore";
+import Provider from "./provider";
 import Home from "./components/Home";
+import Account from "./components/Account";
+import Layout from "./components/Layout";
 
 function App() {
-  const [store, dispatch] = useReducer(reducer, initialState);
   return (
-    <AppContext.Provider value={{ store, dispatch }}>
-      <BrowserRouter>
+    <Provider>
+      <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/account" component={Account} />
         </Switch>
-      </BrowserRouter>
-    </AppContext.Provider>
+      </Layout>
+    </Provider>
   );
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  rootElement
+);

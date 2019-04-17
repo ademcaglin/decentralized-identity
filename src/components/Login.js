@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
+import { AppContext } from "../store";
 import { makeStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
-import { AppContext } from "../store";
 
 const useStyles = makeStyles({
   root: {
@@ -17,19 +17,14 @@ const useStyles = makeStyles({
 
 export default () => {
   const classes = useStyles();
-  const { account, clearAccount } = useContext(AppContext);
-
-  async function resetOnClick() {
-    clearAccount();
-  }
+  const { store, dispatch } = useContext(AppContext);
+  async function setPassword() {}
 
   return (
     <div>
-      {JSON.stringify(account)}
+      {store.hasAccount.toString()}
       <br />
-      <Button className={classes.root} onClick={resetOnClick}>
-        Reset
-      </Button>
+      <Button className={classes.root}>Create</Button>
     </div>
   );
 };
