@@ -4,8 +4,8 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import "./styles.css";
 import Provider from "./provider";
 import Home from "./components/Home";
-import Account from "./components/Account";
 import Layout from "./components/Layout";
+import Scan from "./components/Scan";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/account" component={Account} />
+          <Route path="/scan" component={Scan} />
         </Switch>
       </Layout>
     </Provider>

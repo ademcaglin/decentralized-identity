@@ -26,4 +26,23 @@ function buffer2hex(buffer) {
   return "0x" + str;
 }
 
-export { ab2base64, base642ab, buffer2hex, ab2str, str2ab };
+function isEmptyOrNull(obj) {
+  if (!obj) return true;
+  return Object.entries(obj).length === 0;
+}
+
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  return JSON.parse(window.atob(base64));
+}
+
+export {
+  ab2base64,
+  base642ab,
+  buffer2hex,
+  ab2str,
+  str2ab,
+  isEmptyOrNull,
+  parseJwt
+};

@@ -7,6 +7,8 @@ export const initialState = {
 
 export const AppContext = React.createContext();
 
+export const SessionContext = React.createContext();
+
 export const reducer = (state, action) => {
   switch (action.type) {
     case "RESET":

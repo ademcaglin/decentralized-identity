@@ -1,15 +1,26 @@
 import React, { useContext } from "react";
-import { AppContext } from "../store";
+import { AppContext, SessionContext } from "../store";
 import Login from "./Login";
 import Register from "./Register";
-import useAccount from "../core/useAccount";
+import { isEmptyOrNull } from "../core/baseUtils";
+import useSession from "../core/useSession";
 
 export default props => {
   const { account } = useContext(AppContext);
-  if (account && account.exist) {
-    return <div>{props.children}</div>;
+  const { session, createSession, removeSession } = useSession();
+  if (isEmptyOrNull(account)) {
+    return <Register />;
   }
-  /*if (store.pwdHash) {
-    return <Login />;
-  }*/ return <Register />;
+
+  return (
+    <SessionContext.Provider
+      value={{
+        session,
+        createSession,
+        removeSession
+      }}
+    >
+      {isEmptyOrNull(session) ? <Login /> : props.children}
+    </SessionContext.Provider>
+  );
 };

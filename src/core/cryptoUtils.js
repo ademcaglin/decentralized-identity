@@ -51,7 +51,6 @@ async function signWithKey(privateKey, data) {
       str2ab(data)
     );
     if (signature) {
-      console.log(`called: ${signature}`);
       return signature;
     }
   } catch (e) {
@@ -92,6 +91,7 @@ async function unwrapCryptoKey(wrapped, password) {
     true,
     ["sign"]
   );
+
   return key;
 }
 

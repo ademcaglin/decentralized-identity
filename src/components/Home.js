@@ -1,7 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
-import { AppContext } from "../store";
+import { AppContext, SessionContext } from "../store";
+import useJwt from "../core/useJwt";
+import { parseJwt } from "../core/baseUtils";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -17,18 +20,41 @@ const useStyles = makeStyles({
 
 export default () => {
   const classes = useStyles();
-  const { account, clearAccount } = useContext(AppContext);
-
-  async function resetOnClick() {
-    clearAccount();
+  const { account, removeAccount } = useContext(AppContext);
+  const { session, removeSession } = useContext(SessionContext);
+  const [token, setToken] = useState("");
+  const { getJwt } = useJwt();
+  async function createToken() {
+    let t = await getJwt({ sdfs: "sfs" });
+    console.log(parseJwt(t));
+    setToken(t);
   }
 
   return (
     <div>
       {JSON.stringify(account)}
       <br />
-      <Button className={classes.root} onClick={resetOnClick}>
+      {JSON.stringify(session)}
+      <br />
+      {token}
+      <br />
+      <Button className={classes.root} onClick={() => removeAccount()}>
         Reset
+      </Button>
+      <br />
+      <br />
+      <Button className={classes.root} onClick={() => removeSession()}>
+        Remove Session
+      </Button>
+      <br />
+      <br />
+      <Button className={classes.root} onClick={() => createToken()}>
+        Create Token
+      </Button>
+      <br />
+      <br />
+      <Button className={classes.root} component={Link} to="/scan">
+        Scan
       </Button>
     </div>
   );

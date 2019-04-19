@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
-import { AppContext } from "../store";
+import React, { useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
+import { AppContext, SessionContext } from "../store";
 
 const useStyles = makeStyles({
   root: {
@@ -17,14 +17,15 @@ const useStyles = makeStyles({
 
 export default () => {
   const classes = useStyles();
-  const { store, dispatch } = useContext(AppContext);
-  async function setPassword() {}
-
+  const { account } = useContext(AppContext);
+  const { createSession } = useContext(SessionContext);
   return (
     <div>
-      {store.hasAccount.toString()}
+      {JSON.stringify(account)}
       <br />
-      <Button className={classes.root}>Create</Button>
+      <Button className={classes.root} onClick={() => createSession("aaa")}>
+        Create Session
+      </Button>
     </div>
   );
 };
